@@ -10,7 +10,7 @@ git clone https://github.com/davidmp/FundamentosP2022-G1.git
 doskey /history
 ```
 
-# Comandos para subir a Github desde PC local o Plataformas Online
+# Comandos para subir a Github desde Repositorio local de PC o Plataformas Online
 
 ```console
     1  git status
