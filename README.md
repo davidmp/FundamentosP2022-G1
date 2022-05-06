@@ -23,7 +23,7 @@ doskey /history
     8  history
 ```
 
-# Comandos Para actualizar cambios nuevos de Repositorio Remoto hacial Repositorio Local
+# Comandos Para actualizar cambios nuevos de Repositorio Remoto hacia Repositorio Local
 
 ```console
     1  git pull
