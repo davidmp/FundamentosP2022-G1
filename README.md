@@ -1,5 +1,8 @@
 # FundamentosP2022-G1
 
+[Tutorial de Programacion](https://www.w3schools.com/python/default.asp)
+[Programación Java](https://drive.google.com/file/d/1TcAQVsUFGIG9C7QKWaFJ0VVpYHpcSpHf/view)
+
 # Comandos clonar un repositorio en su PC
 
 ```console
