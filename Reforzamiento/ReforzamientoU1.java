@@ -26,13 +26,13 @@ public class ReforzamientoU1 {
         <=15 y >=13 Aprobo con mencion Baja; <13 Desaprobo
         */
         if (promedio>=18 && promedio<=20) {
-            estado="Aprobo con mension excelente";
+            estado="\n\nAprobo \n\tcon mension excelente";
         }else if(promedio<18 && promedio>15){
-            estado="Aprobo con mension Regular";
+            estado="\n\nAprobo \n\tcon mension Regular";
         }else if(promedio<=15 && promedio>=13){
-            estado="Aprobo con mension baja";
+            estado="\n\nAprobo \n\tcon mension baja";
         }else{
-            estado="Desaprobo";
+            estado="\n\nDesaprobo";
         }
         // Datos de Salida 
         System.out.println(estado);

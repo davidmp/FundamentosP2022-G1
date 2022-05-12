@@ -29,4 +29,9 @@ def ejercicodosDMP():
   print(f"El sueldo del trabajador es {sueldomensual}")
 
 
-ejercicodosDMP()
+pregunta=int(input("Ingrese la pregunta que desea probar: "))
+
+if pregunta==1:
+  ejerciounoDMP()
+elif pregunta==2:
+  ejercicodosDMP()
