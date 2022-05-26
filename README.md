@@ -37,5 +37,7 @@ doskey /history
 
 ```console
     javac -d ./ ./*.java
+    javac -d . *.java
+    
     java subprogramas.ClaseGeneral
 ```
