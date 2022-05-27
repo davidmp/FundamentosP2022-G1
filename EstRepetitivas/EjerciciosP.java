@@ -102,7 +102,81 @@ public class EjerciciosP {
             i++;
         }
     }
+    /*
+    Factorizar un número ingresado por teclado. Po ejemplo:
+    #Solución:
 
+    Definición de variables:
+    * n: número cuyos factores se desean obtener, 
+    * i: posibles factores
+
+    No debemos confundir el término factorizar que significa encontrar todos los factores primos de un número y el término factorial que significa el producto de todos los números consecutivos desde la unidad hasta el mismo número
+
+    Para encontrar todos los factores de un número necesitamos generar los posibles valores que puedan dividir a dicho número. Esto se logra con la variable $i$ que inicializamos en 2, no se considera el 1 porque es un factor de todos los números. El bucle se ejecuta mientras estos posibles factores $i$ sean menores que el numero $n$. Si $i$ divide exactamente a  n entonces  le  sacamos  el  factor  $i$ mediante  la  división  entera  $n  =  n / i$,  y lo imprimimos.  En este caso $i$ no aumenta en una unidad, pues deberá volver a probar si $i$ es nuevamente un factor de $n$. El incremento de $i$ ocurre solamente cuando $i$ no dividió a $n$ ejecutándose la parte correspondiente al else.
+    */
+    public static void factorizar() {
+        int n, i;        
+        System.out.println("Ingres número: "); n=leerT.nextInt();        
+        i = 2;
+        while (i<=n) {
+            if(n%i==0) {n = n/i; System.out.println(i); }else{i++;}             
+        }
+    }
+    /*
+    #Ejercicio 5
+    Escriba un algoritmo que diga si un número es primo.   
+    ##Solución:
+    Definición de variables: 
+
+    * n: número a evaluar 
+    * i: posible divisor
+    * band: 0 indica que no es primo
+
+    Un número es primo, cuando solamente es divisible por la unidad y por sí mismo. 
+    Entonces, necesitamos encontrar un número $i$ mayor que 1 pero menor a $n$, que divida exactamente a $n$, para afirmar que $n$ no es primo. Si esta búsqueda no es satisfactoria el número será primo.
+
+    Suponemos pues, que todo número es primo, hasta que se demuestre lo contrario; así que usaremos un indicador bandera (flag) representado por la variable band.  Si band = 1 el número es primo y no lo es cuando band=0.
+
+    Comenzamos inicializando los posibles divisores $i$, igual a $n/2$, pues no existen divisores que sean mayores que la mitad del número, para ir preguntando si $i$ divide a $n$, en este caso debemos cambiar band a cero, indicando que el número $n$ ha sido dividido por otro número $i$ diferente de 1 y de él mismo, y por lo tanto $n$ ya no será primo. Al terminar el bucle, preguntamos por band si fuera igual a 1, el número $n$ será primo y no primo en caso contrario.    
+    */
+    public static void siNumeroPrimo() {
+        int n,i,band;
+        System.out.println("Ingrese número: ");n=leerT.nextInt();
+        i=n/2;
+        band=1;
+        while (i>1) {
+            if (n%i == 0) {
+                band=0;
+            }
+            i++;
+        }
+
+        if (band==1) {
+            System.out.println("Es primo");
+        }else{System.out.println("No es primo");}
+    }
+    /*
+    Escriba un programa que permita reducir una fracción a su mínima expresión, por ejemplo: 28/64 = 7/16
+    #Solución:
+    Definición     de     variables: 
+    * a:   numerador 
+    * b: denominador
+    * i: posible divisor de a y b
+
+    Basta con probar si $i$ divide al numerador y al denominador al mismo tiempo, para cada $i$ desde 2 y mientras sea menor a ambos números.  Si $i$ es un divisor de $a$ y $b$, entonces simplificar la fracción en caso contrario probar con el siguiente $i$.
+    */
+    public static void reducirFraccion() {
+        int a, b, i;
+        System.out.println("Ingrese numerador: "); a=leerT.nextInt();
+        System.out.println("Ingrese denominador: "); b=leerT.nextInt();
+        i = 2;
+        while (i<=a && i<=b) {
+            if (a%i==0 && b%i==0) {
+                a = a/i;
+                b = b/i;
+            }else{i=i+1;}
+        }
+    }
 
     public static void main(String[] args) {
         System.out.println("Indique el numero de ejercicio:");
@@ -112,8 +186,10 @@ public class EjerciciosP {
             case 2: obtenerCocienteReciduo(); break;
             case 3: fibonaci(); break;
             case 4: divisoresCumunes(); break;
-            case 5: ; break;
-            case 6:  break;
+            case 5: factorizar(); break;
+            case 6: siNumeroPrimo(); break;
+            case 7: reducirFraccion(); break;
+            
             default: System.out.println("opcion no existe"); break;
         }
     }
