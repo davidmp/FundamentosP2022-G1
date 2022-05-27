@@ -177,6 +177,84 @@ public class EjerciciosP {
             }else{i=i+1;}
         }
     }
+    /*
+    Lea un número y forme otro número con las cifras en orden inverso. Así si el número es 12345 el nuevo número será 54321.
+    ## Solución:
+    Definición de variables:
+    * n: numero cuyos dígitos se invertirán 
+    * inv: número invertido
+
+    Para    obtener    un    nuevo    número    $inv$, formado por los dígitos de $n$, pero en orden invertido, debemos obtener cada uno de los dígitos de $n$, e ir desplazándolos un valor posicional (unidad, decena, centena, etc.).  Cada uno de los dígitos, pueden ser obtenidos al buscar el resto de la división entera entre 10 (n MOD 10) y se debe ir incrementando el valor posicional mediante la multiplicación del resto por 10, y su acumulación en la variable $inv$.  Se puede usar la división entera (que de manera estándar se representa mediante el operador DIV, y que en python, se implementa con el operador /, y cuando queremos obtener el valor entero de la división se usa //. El ciclo se ejecuta mientras el número aún tenga dígitos que obtener (mientras $n$ sea mayor que cero), luego del cual imprimimos 
+    $inv$.
+    */
+    public static void numeroInverso() {
+        int n,inv;
+        System.out.println("Ingrese número: "); n=leerT.nextInt();
+        inv = 0;
+        while (n>0) {
+            inv = 10*inv + n%10;
+            n = (int)n/10;
+        }
+        System.out.println("El inverso es: "+inv); 
+    }
+
+    /*
+    Ejericio 8.
+    Un número se considera perfecto cuando la suma de sus divisores es igual al número. Por ejemplo 6 tiene como divisores a 1, 2 y 3 y como 1+2+3 = 6, el número 6 será perfecto; 28 tiene como divisores a 1, 2, 5, 7 y 14, luego 28 es perfecto pues 1+2+4+7+14 = 28, lo mismo ocurre con 496 y 8128, escriba un programa que lea un número y diga si es perfecto.
+    ##Solución:
+    Definición de variables:
+    * n: numero a evaluar 
+    * s: suma de los divisores 
+    * i: posibles divisores
+
+    Basta con obtener sus divisores y sumarlos. Utilizaremos la siguiente estrategia, comenzando desde la mitad del número $n$ iremos probando los posibles divisores $i$, disminuyendo $i$ de uno en uno, mientras $i$ sea mayor que cero.
+
+    En caso de que $n$ sea dividido exactamente por $i$ acumular $i$ en $s$, y probar siguiente $i$.  Al final del bucle preguntamos si la suma $s$, resultó ser igual al número digitado $n$, en cuyo caso imprimiremos que $n$ es perfecto.    
+    */
+    public static void numeroPerfecto() {
+        int n, i, s;
+        System.out.println("Ingrese número: ");
+        n=leerT.nextInt();
+        s = 0;
+        i = n/2;
+        while(i>0){
+            if(n%i==0){
+                s = s+i;
+            }
+            i--;
+        }
+        if (s==n) {
+            System.out.println(n+" es perfecto");
+        }else{System.out.println(n+" no es perfecto");}
+    }
+    /* 
+    Los números Amstrong o cubos perfectos son aquellos sque sumados los cubos de sus dígitos nos dan el mismo número. por ejemplo 153 es un cubo perfecto pues:  13+53+33=153 . Lea un número y diga si es o no un cubo perfecto.
+    ## Solución:
+
+    Definición de variables
+
+    * n: número a evaluar
+    * sc: suma de los cubos de sus cifras
+    * temp: se iguala inicialmente a $n$ y sirve para trabajar en el algoritmo sin perder $n$
+
+    De manera similar al ejercicio anterio pero esta vez obtenemos cada dígito para elevarlo al cubo y acumularlo en $sc$. si $sc$ resulta ser igual a $n$, entonces el número es un cubo perfecto.
+
+    Pruebe el algoritmo con los siguientes cubos perfectos: 1,153,370,371 y 407
+    */
+    public static void cubosPerfectos() {
+        int n, sc, temp;
+        System.out.println("Ingrese número: "); n=leerT.nextInt();
+        sc = 0;
+        temp = n;    
+        while(temp>0){
+            sc = sc + ((int)(Math.pow(temp%10, 3)));
+            temp = temp/10;
+        }
+        if(n==sc){
+            System.out.println("El cubo es perfecto");
+        }else{System.out.println("No es cubo perfecto");}
+    }
+
 
     public static void main(String[] args) {
         System.out.println("Indique el numero de ejercicio:");
@@ -189,7 +267,10 @@ public class EjerciciosP {
             case 5: factorizar(); break;
             case 6: siNumeroPrimo(); break;
             case 7: reducirFraccion(); break;
-            
+            case 8: numeroInverso(); break;
+            case 9: numeroPerfecto();break;
+            case 10: cubosPerfectos();break;
+
             default: System.out.println("opcion no existe"); break;
         }
     }
