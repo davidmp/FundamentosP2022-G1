@@ -51,4 +51,24 @@ doskey /history
 	 <maven.compiler.target>11</maven.compiler.target>
 	</properties>
 
+
+build> 
+<plugins>
+<plugin>
+<!-- Build an executable JAR -->
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-jar-plugin</artifactId>
+<version>2.4</version> 
+<configuration> 
+<archive>
+<manifest>
+<mainClass>pe.edu.upeu.swingjava.ExamenJava</mainClass> 
+</manifest>
+</archive>
+</configuration>
+</plugin>
+</plugins>
+</build>
+
+
 ```
