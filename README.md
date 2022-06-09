@@ -52,7 +52,7 @@ doskey /history
 	</properties>
 
 
-build> 
+<build> 
 <plugins>
 <plugin>
 <!-- Build an executable JAR -->
