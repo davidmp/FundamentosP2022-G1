@@ -1,5 +1,7 @@
 package pe.edu.upeu.arrays;
 
+import pe.edu.upeu.modelo.Persona;
+
 /**
  * VectoresEjemplo
  */
@@ -21,6 +23,12 @@ public class VectoresEjemplo {
         System.out.println("Indice 0:"+edadesX[0]);
         System.out.println("Indice 4:"+edadesX[4]);        
     }
+
+    public void vectorObjetos() {
+        Persona[] p=new Persona[27];
+        p[0].codigo="200410564";
+    }
+
 
     public static void main(String[] args) {
         VectoresEjemplo objx=new VectoresEjemplo();
