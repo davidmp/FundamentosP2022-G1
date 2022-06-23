@@ -1,0 +1,9 @@
+pe\edu\upeu\gui\MainGUI.class
+pe\edu\upeu\arrays\MatricesEjemplos.class
+pe\edu\upeu\app\App.class
+pe\edu\upeu\modelo\CategoriaTO.class
+pe\edu\upeu\modelo\ModeloTO.class
+pe\edu\upeu\modelo\Persona.class
+pe\edu\upeu\gui\MainGUI$1.class
+pe\edu\upeu\util\UtilsX.class
+pe\edu\upeu\arrays\VectoresEjemplo.class
