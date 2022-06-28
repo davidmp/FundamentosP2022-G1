@@ -42,6 +42,11 @@ doskey /history
     java subprogramas.ClaseGeneral
 ```
 
+# Crear Proyectos de Tipo Maven
+
+```console
+	mvn archetype:generate -DarchetypeArtifactId=maven-archetype-quickstart
+```
 
 # Pom.xml
 
