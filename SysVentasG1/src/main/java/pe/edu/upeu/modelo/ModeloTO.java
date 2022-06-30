@@ -7,6 +7,10 @@ public class ModeloTO {
     public String idModelo;
     public String nombreModelo;
     
+    public ModeloTO(){
+        
+    }
+
     public ModeloTO(String idModelo, String nombreModelo) {
         this.idModelo = idModelo;
         this.nombreModelo = nombreModelo;

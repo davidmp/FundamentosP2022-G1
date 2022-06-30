@@ -7,6 +7,8 @@ public class CategoriaTO {
    public String idCat;
    public String nombreCat;
 
+    public CategoriaTO(){}
+    
     public CategoriaTO(String idCat, String nombreCat) {
         this.idCat = idCat;
         this.nombreCat = nombreCat;

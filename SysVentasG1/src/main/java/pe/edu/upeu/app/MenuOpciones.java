@@ -2,6 +2,9 @@ package pe.edu.upeu.app;
 
 import java.io.Console;
 
+import pe.edu.upeu.dao.CategoriDao;
+import pe.edu.upeu.dao.ClienteDao;
+import pe.edu.upeu.dao.ModeloDao;
 import pe.edu.upeu.dao.UsuarioDao;
 import pe.edu.upeu.modelo.UsuarioTO;
 import pe.edu.upeu.util.LeerTeclado;
@@ -29,13 +32,15 @@ public class MenuOpciones {
 
     public void menuPrincial() {
         System.out.println("********************Bienvenidos al Sistema de Ventas******************");
-        String valorX="1=Registrar Usuario\n"+"2=Registrar cliente\n"+
-                "3=Registrar Venta\n";
-        int opciones=1;
+        String valorX="1=Registrar Usuario\n"+"2=Registrar Categoria\n"+
+                "3=Registrar cliente\n4=Registrar Modelo";
+        int opciones=0;
         do {
             switch (opciones) {
                 case 1: new UsuarioDao().crearUsuario(); break;
-                case 2: System.out.println("clientes"); break;
+                case 2: new CategoriDao().crearCategoria(); break;
+                case 3: new ClienteDao().crearCliente();break;
+                case 4: new ModeloDao().crearModelo();break;
                 default: System.out.println("Opcion erronea!"); break;
             }
             char continuar=leerT.leer("", "Desea continuar? S=si/N=no")
