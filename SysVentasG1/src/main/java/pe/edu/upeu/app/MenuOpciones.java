@@ -7,6 +7,7 @@ import pe.edu.upeu.dao.ClienteDao;
 import pe.edu.upeu.dao.ModeloDao;
 import pe.edu.upeu.dao.ProductoDao;
 import pe.edu.upeu.dao.UsuarioDao;
+import pe.edu.upeu.dao.VentasDao;
 import pe.edu.upeu.modelo.UsuarioTO;
 import pe.edu.upeu.util.LeerTeclado;
 
@@ -33,7 +34,7 @@ public class MenuOpciones {
     public void menuPrincial() {
         System.out.println("********************Bienvenidos al Sistema de Ventas******************");
         String valorX="1=Registrar Usuario\n"+"2=Registrar Categoria\n"+
-                "3=Registrar cliente\n4=Registrar Modelo\n5=Crear Producto";
+                "3=Registrar cliente\n4=Registrar Modelo\n5=Crear Producto\n6=Ventas";
         int opciones=0;
         do {
             switch (opciones) {
@@ -42,6 +43,7 @@ public class MenuOpciones {
                 case 3: new ClienteDao().crearCliente();break;
                 case 4: new ModeloDao().crearModelo();break;
                 case 5: new ProductoDao().crearProducto();break;
+                case 6: new VentasDao().registroVentaGeneral();break;
                 default: System.out.println("Opcion erronea!"); break;
             }
             char continuar=leerT.leer("", "Desea continuar? S=si/N=no")
