@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class VentaTO {    
-    String idVenta, dni;
-    double descuento,subprecio, igv, precioTotal;
+   public String idVenta, dni;
+   public double descuento,subprecio, igv, precioTotal;
 }

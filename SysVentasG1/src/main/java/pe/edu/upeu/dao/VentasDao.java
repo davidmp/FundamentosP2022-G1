@@ -34,13 +34,46 @@ public class VentasDao extends AppCrud{
         }
     }
 
-    public void venta() {
-        
+    public void venta(VentaTO vtox) {
+        leerA=new LeerArchivo(TABLA_VENTA);
+        agregarContenido(leerA, vtox);
     }
 
-    public void carritoVenta() {
-        
+    public void carritoVenta(VentaTO vtox) {
+        char continuar=' ';
+        do {
+            mostrarProductos();
+            //agregar productos
+            vdTo=new VentaDetalleTO();
+            leerA=new LeerArchivo(TABLA_DETALLEVENTA);
+            String idvX=generarId(leerA, 0, "DV", 2);
+            vdTo.setIdDetalle(idvX);
+            vdTo.setIdProducto(leerT.leer("", "Ingrese Id Producto"));
+            vdTo.setCantidad(leerT.leer(0, "Ingrese Cantidad"));
+            vdTo.setIdVenta(vtox.getIdVenta());
+            vdTo.setDescuento(0);
+            leerA=new LeerArchivo(TABLA_PRODUCTO);
+            Object[][] dataPX=buscarContenido(leerA,5, vdTo.getIdProducto());
+            vdTo.setPrecioUnit(Double.parseDouble(String.valueOf(dataPX[0][5])));
+            vdTo.setTotal(vdTo.getCantidad()*vdTo.getPrecioUnit());
+            leerA=new LeerArchivo(TABLA_DETALLEVENTA);
+            agregarContenido(leerA, vdTo);
+            
+            continuar=leerT.leer("", "Desea Agregar mas Productos?S/N")
+            .toLowerCase()
+            .charAt(0);
+        } while (continuar=='s');
     }
+
+    public void mostrarProductos() {
+        leerA=new LeerArchivo(TABLA_PRODUCTO);
+        Object[][] dataP=listarContenido(leerA);
+        for (int i = 0; i < dataP.length; i++) {
+            System.out.print(dataP[i][0]+"="+dataP[i][1]+",");
+        }
+        System.out.println("");
+    }
+
 
     public boolean validarCliente(String dni) {
         leerA=new LeerArchivo(TABLA_CLIENTE);
