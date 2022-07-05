@@ -30,6 +30,23 @@ public class ClienteDao extends AppCrud{
     }
    }  
    
+   public void crearCliente(String dni) {
+    util.clearConsole();
+    leerA=new LeerArchivo(TABLA_CLIENTE);
+    cTo=new ClienteTO();
+    System.out.println("*************Crear Cliente****************");
+    //String dniX=leerT.leer("", "Ingrese un DNI");
+    if (noExisteDNI(dni)) {
+        cTo.setDni(dni);
+        cTo.setNombre(leerT.leer("", "Ingrese nombre de cliente"));
+        agregarContenido(leerA, cTo);     
+    }else{
+        System.err.println("El Dni ya esta registrado! intente con otro dni!");
+        crearCliente(dni);
+
+    }
+   } 
+   
    public boolean noExisteDNI(String dni) {
     leerA=new LeerArchivo(TABLA_CLIENTE);
     Object[][] dataC=buscarContenido(leerA, 0, dni);
