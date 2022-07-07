@@ -24,23 +24,25 @@ public class VentasDao extends AppCrud{
         util.clearConsole();
         System.out.println("**************Realizar Venta*************");
         String dnix=leerT.leer("", "Ingrese DNI del cliente");
-        if (validarCliente(dnix)) {
-            vTo=new VentaTO();
-            vTo.setDni(dnix);
-            vTo.setDescuento(0);
-            leerA=new LeerArchivo(TABLA_VENTA);
-            String idV=generarId(leerA, 0, "V", 1);
-            vTo.setIdVenta(idV);
-        }
+        VentaTO vTo=new VentaTO();
+        vTo.setDni(validarCliente(dnix)); 
+        leerA=new LeerArchivo(TABLA_VENTA);
+        String idV=generarId(leerA, 0, "V", 1);              
+        vTo.setIdVenta(idV);
+        leerA=new LeerArchivo(TABLA_VENTA);  
+        agregarContenido(leerA, vTo);
+        leerA=new LeerArchivo(TABLA_VENTA);
+        Object[][] dataV=buscarContenido(leerA, 0, idV);
+        if (dataV.length==1) {
+            carritoVenta(vTo);
+        }            
     }
 
-    public void venta(VentaTO vtox) {
-        leerA=new LeerArchivo(TABLA_VENTA);
-        agregarContenido(leerA, vtox);
-    }
+
 
     public void carritoVenta(VentaTO vtox) {
         char continuar=' ';
+        double preciototalX=0;
         do {
             mostrarProductos();
             //agregar productos
@@ -53,9 +55,10 @@ public class VentasDao extends AppCrud{
             vdTo.setIdVenta(vtox.getIdVenta());
             vdTo.setDescuento(0);
             leerA=new LeerArchivo(TABLA_PRODUCTO);
-            Object[][] dataPX=buscarContenido(leerA,5, vdTo.getIdProducto());
+            Object[][] dataPX=buscarContenido(leerA,0, vdTo.getIdProducto());
             vdTo.setPrecioUnit(Double.parseDouble(String.valueOf(dataPX[0][5])));
             vdTo.setTotal(vdTo.getCantidad()*vdTo.getPrecioUnit());
+            preciototalX+=vdTo.getTotal();
             leerA=new LeerArchivo(TABLA_DETALLEVENTA);
             agregarContenido(leerA, vdTo);
             
@@ -63,6 +66,11 @@ public class VentasDao extends AppCrud{
             .toLowerCase()
             .charAt(0);
         } while (continuar=='s');
+        vtox.setSubprecio(Math.round((preciototalX/1.18)*100.0)/100.0);
+        vtox.setIgv(Math.round((vtox.getSubprecio()*0.18)*100.0)/100.0);
+        vtox.setPrecioTotal(Math.round(preciototalX*100.0)/100.0);
+        leerA=new LeerArchivo(TABLA_VENTA);
+        editarRegistro(leerA, 0, vtox.getIdVenta(), vtox);
     }
 
     public void mostrarProductos() {
@@ -75,15 +83,13 @@ public class VentasDao extends AppCrud{
     }
 
 
-    public boolean validarCliente(String dni) {
+    public String validarCliente(String dni) {
         leerA=new LeerArchivo(TABLA_CLIENTE);
         Object[][] dataC=buscarContenido(leerA, 0, dni);
         if (dataC==null || dataC.length==0) {
-            new ClienteDao().crearCliente(dni);
-            return true;
-        }else{
-            return true;
+            new ClienteDao().crearCliente(dni);           
         }        
+        return dni;
     }
 
 
