@@ -1,6 +1,10 @@
 package pe.edu.upeu.dao;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import pe.edu.upeu.crud.AppCrud;
+import pe.edu.upeu.modelo.ProductoTO;
 import pe.edu.upeu.modelo.VentaDetalleTO;
 import pe.edu.upeu.modelo.VentaTO;
 import pe.edu.upeu.util.LeerArchivo;
@@ -17,6 +21,9 @@ public class VentasDao extends AppCrud{
     final static String TABLA_DETALLEVENTA="DetalleVenta.txt";
     final static String TABLA_CLIENTE="Cliente.txt";
 
+    SimpleDateFormat formatFechaHora = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    SimpleDateFormat formatFecha = new SimpleDateFormat("dd-MM-yyyy");
+
     VentaTO vTo;
     VentaDetalleTO vdTo;
 
@@ -29,7 +36,9 @@ public class VentasDao extends AppCrud{
         leerA=new LeerArchivo(TABLA_VENTA);
         String idV=generarId(leerA, 0, "V", 1);              
         vTo.setIdVenta(idV);
-        leerA=new LeerArchivo(TABLA_VENTA);  
+        vTo.setFecha(formatFechaHora.format(new Date()));
+
+        leerA=new LeerArchivo(TABLA_VENTA); 
         agregarContenido(leerA, vTo);
         leerA=new LeerArchivo(TABLA_VENTA);
         Object[][] dataV=buscarContenido(leerA, 0, idV);
@@ -51,16 +60,21 @@ public class VentasDao extends AppCrud{
             String idvX=generarId(leerA, 0, "DV", 2);
             vdTo.setIdDetalle(idvX);
             vdTo.setIdProducto(leerT.leer("", "Ingrese Id Producto"));
+
             vdTo.setCantidad(leerT.leer(0, "Ingrese Cantidad"));
+
             vdTo.setIdVenta(vtox.getIdVenta());
             vdTo.setDescuento(0);
             leerA=new LeerArchivo(TABLA_PRODUCTO);
             Object[][] dataPX=buscarContenido(leerA,0, vdTo.getIdProducto());
-            vdTo.setPrecioUnit(Double.parseDouble(String.valueOf(dataPX[0][5])));
+            vdTo.setPrecioUnit(Double.parseDouble(String.valueOf(dataPX[0][5]))+
+            Double.parseDouble(String.valueOf(dataPX[0][6])));
             vdTo.setTotal(vdTo.getCantidad()*vdTo.getPrecioUnit());
             preciototalX+=vdTo.getTotal();
             leerA=new LeerArchivo(TABLA_DETALLEVENTA);
             agregarContenido(leerA, vdTo);
+            
+            descontarStockProducto(vdTo);
             
             continuar=leerT.leer("", "Desea Agregar mas Productos?S/N")
             .toLowerCase()
@@ -73,11 +87,24 @@ public class VentasDao extends AppCrud{
         editarRegistro(leerA, 0, vtox.getIdVenta(), vtox);
     }
 
+    public void descontarStockProducto(VentaDetalleTO vdTX) {
+        leerA=new LeerArchivo(TABLA_PRODUCTO); 
+        Object[][] dataP=buscarContenido(leerA, 0, vdTX.getIdProducto());
+        ProductoTO to=new ProductoTO();
+        to.setStock(Double.parseDouble(String.valueOf(dataP[0][7]))-vdTX.getCantidad());
+        leerA=new LeerArchivo(TABLA_PRODUCTO); 
+        editarRegistro(leerA, 0, vdTX.getIdProducto(), to);
+    }
+
     public void mostrarProductos() {
+        util.clearConsole();
+        System.out.println("*******************Lista de Productos*************");
         leerA=new LeerArchivo(TABLA_PRODUCTO);
         Object[][] dataP=listarContenido(leerA);
         for (int i = 0; i < dataP.length; i++) {
-            System.out.print(dataP[i][0]+"="+dataP[i][1]+",");
+            if(Double.parseDouble(String.valueOf(dataP[i][7]))>0){
+                System.out.print(dataP[i][0]+"="+dataP[i][1]+"("+dataP[i][7]+")"+",");
+            }
         }
         System.out.println("");
     }
