@@ -159,7 +159,7 @@ public class VentasDao extends AppCrud{
                         indiceVector++;
                 }
             }            
-
+            System.out.printf("%d.\n","" );
 
 
         } catch (Exception e) {
