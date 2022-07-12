@@ -139,7 +139,8 @@ public class VentasDao extends AppCrud{
                 }
             }
             VentaTO[] ventasERF=new VentaTO[cantidadFilas];
-
+            int indiceVector=0;
+            
 
 
         } catch (Exception e) {
