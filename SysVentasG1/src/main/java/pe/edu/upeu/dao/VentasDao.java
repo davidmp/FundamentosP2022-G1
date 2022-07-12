@@ -119,6 +119,33 @@ public class VentasDao extends AppCrud{
         return dni;
     }
 
+    public void reporteVentas() {
+        util.clearConsole();
+        System.out.println("******************Reporte de Ventas por Fechas*****************");
+        leerA=new LeerArchivo(TABLA_VENTA);
+        Object[][] dataP=listarContenido(leerA);
+        String fechaI=leerT.leer("", "Ingrese Fecha Inicio (dd-MM-YYYY)");
+        String fechaF=leerT.leer("", "Ingrese Fecha Fin (dd-MM-YYYY)");
+        int cantidadFilas=0;
+        try {
+            for (int i = 0; i < dataP.length; i++) {
+                String[] fechaSeparada=String.valueOf(dataP[i][2]).split(" ");
+                Date fechaV=formatFecha.parse(fechaSeparada[0]);
+                if (
+                    (fechaV.after(formatFecha.parse(fechaI)) || fechaSeparada[0].equals(fechaI)) &&
+                    (fechaV.before(formatFecha.parse(fechaF)) || fechaSeparada[0].equals(fechaF))                
+                    ) {
+                        cantidadFilas++;
+                }
+            }
+            VentaTO[] ventasERF=new VentaTO[cantidadFilas];
+
+
+
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+    }
 
 
 
