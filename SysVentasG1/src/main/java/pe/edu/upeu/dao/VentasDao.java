@@ -140,7 +140,26 @@ public class VentasDao extends AppCrud{
             }
             VentaTO[] ventasERF=new VentaTO[cantidadFilas];
             int indiceVector=0;
-            
+            for (int i = 0; i < dataP.length; i++) {
+                String[] fechaSeparada=String.valueOf(dataP[i][2]).split(" ");
+                Date fechaV=formatFecha.parse(fechaSeparada[0]);
+                if (
+                    (fechaV.after(formatFecha.parse(fechaI)) || fechaSeparada[0].equals(fechaI)) &&
+                    (fechaV.before(formatFecha.parse(fechaF)) || fechaSeparada[0].equals(fechaF))                
+                    ) {
+                        VentaTO vTX=new VentaTO();
+                        vTX.setIdVenta(String.valueOf(dataP[i][0]));
+                        vTX.setDni(String.valueOf(dataP[i][1]));
+                        vTX.setFecha(String.valueOf(dataP[i][2]));
+                        vTX.setDescuento(Double.parseDouble(String.valueOf(dataP[i][3])));
+                        vTX.setSubprecio(Double.parseDouble(String.valueOf(dataP[i][4])));
+                        vTX.setIgv(Double.parseDouble(String.valueOf(dataP[i][5])));
+                        vTX.setPrecioTotal(Double.parseDouble(String.valueOf(dataP[i][6])));
+                        ventasERF[indiceVector]=vTX;
+                        indiceVector++;
+                }
+            }            
+
 
 
         } catch (Exception e) {
