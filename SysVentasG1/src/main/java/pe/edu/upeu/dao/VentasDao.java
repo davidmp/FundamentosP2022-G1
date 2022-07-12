@@ -159,11 +159,21 @@ public class VentasDao extends AppCrud{
                         indiceVector++;
                 }
             }            
-            System.out.printf("%d.\n","" );
+            System.out.printf("%s %s %5s %15s %3s %3s %3s %4s %n","#", "IdV", "DNI", 
+            "Fecha","Desct.", "P.Base", "IGV", "P.Total");
+            int num=0;
 
+            //System.out.println(ventasERF.length);
+            for (VentaTO ventaTO : ventasERF) {
+                System.out.printf("%d %s %5s %15s %3.2f %3.2f %3.2f %4.2f %n",
+                (++num), ventaTO.getIdVenta(),ventaTO.getDni(),
+                ventaTO.getFecha(),ventaTO.getDescuento(),ventaTO.getSubprecio(),
+                ventaTO.getIgv(),ventaTO.getPrecioTotal()
+                );
+            }
 
         } catch (Exception e) {
-            //TODO: handle exception
+           System.err.println("Error al reportar!!");
         }
     }
 
