@@ -3,6 +3,9 @@ package pe.edu.upeu.dao;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.fusesource.jansi.Ansi;
+import org.fusesource.jansi.AnsiConsole;
+
 import pe.edu.upeu.crud.AppCrud;
 import pe.edu.upeu.modelo.ProductoTO;
 import pe.edu.upeu.modelo.VentaDetalleTO;
@@ -21,8 +24,8 @@ public class VentasDao extends AppCrud{
     final static String TABLA_DETALLEVENTA="DetalleVenta.txt";
     final static String TABLA_CLIENTE="Cliente.txt";
 
-    SimpleDateFormat formatFechaHora = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-    SimpleDateFormat formatFecha = new SimpleDateFormat("dd-MM-yyyy");
+    public SimpleDateFormat formatFechaHora = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    public SimpleDateFormat formatFecha = new SimpleDateFormat("dd-MM-yyyy");
 
     VentaTO vTo;
     VentaDetalleTO vdTo;
@@ -189,10 +192,10 @@ public class VentasDao extends AppCrud{
             //Para saber que cantidad de registros coinciden con el rango de fecha
             for (int i = 0; i < dataV.length; i++) {
                 String[] fechaVentor=String.valueOf(dataV[i][2]).split(" ");
-                Date fechaVentaX=formatoFecha.parse(fechaVentor[0]);
+                Date fechaVentaX=formatFecha.parse(fechaVentor[0]);
                 if(
-                (fechaVentaX.after(formatoFecha.parse(fechaInit)) || fechaInit.equals(fechaVentor[0])) && 
-                (fechaVentaX.before(formatoFecha.parse(fechaFinal)) || fechaFinal.equals(fechaVentor[0]))
+                (fechaVentaX.after(formatFecha.parse(fechaInit)) || fechaInit.equals(fechaVentor[0])) && 
+                (fechaVentaX.before(formatFecha.parse(fechaFinal)) || fechaFinal.equals(fechaVentor[0]))
                 ){
                     contadorVRD++; 
                 }
@@ -203,19 +206,20 @@ public class VentasDao extends AppCrud{
             int indiceVector=0;
             for (int i = 0; i < dataV.length; i++) {
                 String[] fechaVentor=String.valueOf(dataV[i][2]).split(" ");
-                Date fechaVentaX=formatoFecha.parse(fechaVentor[0]);
+                Date fechaVentaX=formatFecha.parse(fechaVentor[0]);
                 if(
-                (fechaVentaX.after(formatoFecha.parse(fechaInit)) || fechaInit.equals(fechaVentor[0])) && 
-                (fechaVentaX.before(formatoFecha.parse(fechaFinal)) || fechaFinal.equals(fechaVentor[0]))
+                (fechaVentaX.after(formatFecha.parse(fechaInit)) || fechaInit.equals(fechaVentor[0])) && 
+                (fechaVentaX.before(formatFecha.parse(fechaFinal)) || fechaFinal.equals(fechaVentor[0]))
                 ){
                    VentaTO vTo=new VentaTO();
                    vTo.setIdVenta(dataV[i][0].toString());
-                   vTo.setDniruc(dataV[i][1].toString());
+                   vTo.setDni(dataV[i][1].toString());
                    vTo.setFecha(dataV[i][2].toString());
 
-                   vTo.setIgv(Double.parseDouble(String.valueOf(dataV[i][4].toString())));
-                   vTo.setPreciobase(Double.parseDouble(String.valueOf(dataV[i][3])));
-                   vTo.setPrecioTotal(Double.parseDouble(String.valueOf(dataV[i][5])));
+                   vTo.setDescuento(Double.parseDouble(String.valueOf(dataV[i][3].toString())));
+                   vTo.setSubprecio(Double.parseDouble(String.valueOf(dataV[i][4])));
+                   vTo.setIgv(Double.parseDouble(String.valueOf(dataV[i][5])));
+                   vTo.setPrecioTotal(Double.parseDouble(String.valueOf(dataV[i][6])));
                    
                    dataReal[indiceVector]=vTo;
                    indiceVector++;
@@ -229,15 +233,15 @@ public class VentasDao extends AppCrud{
             .a("===========Reporte Ventas entre "+fechaInit+" Y "+fechaFinal+"============").reset());
             
             util.pintarLine('H', 40);
-            util.pintarTextHeadBody('H', 3, "ID,DNI,Fecha, Sub. Total, IGV, Imp.Total");
+            util.pintarTextHeadBody('H', 3, "ID,DNI,Fecha, Descuento,Sub. Total, IGV, Imp.Total");
             System.out.println("");
             double subtotalX=0,igvX=0, importeTX =0;
             util.pintarLine('H', 40);
             for (VentaTO TOv : dataReal) {
-                String datax=TOv.getIdVenta()+","+TOv.getDniruc()+","+TOv.getFecha()+","+
-                TOv.getPreciobase()+","+TOv.getIgv()+","+TOv.getPrecioTotal();
+                String datax=TOv.getIdVenta()+","+TOv.getDni()+","+TOv.getFecha()+","+
+                TOv.getDescuento()+","+TOv.getSubprecio()+","+TOv.getIgv()+","+TOv.getPrecioTotal();
 
-                subtotalX+=TOv.getPreciobase(); 
+                subtotalX+=TOv.getSubprecio(); 
                 igvX+=TOv.getIgv(); 
                 importeTX+=TOv.getPrecioTotal();
                 util.pintarTextHeadBody('B', 3, datax);

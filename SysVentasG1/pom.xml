@@ -27,6 +27,17 @@
         <version>1.18.24</version>
         <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.fusesource.jansi</groupId>
+      <artifactId>jansi</artifactId>
+      <version>2.3.3</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>itextpdf</artifactId>
+      <version>5.5.13.2</version>
+    </dependency>    
   </dependencies>
 
 <build> 
