@@ -36,6 +36,29 @@ public class Transformadas {
         imprimirMatriz(matriz);
     }
 
+    public void transformada21() {
+       String[][] matriz;
+       System.out.println("Ingrese la dimension de la Matriz:");
+       int dimension=cs.nextInt();//5
+       System.out.println("");
+       int valor=0;
+       matriz=new String[dimension][dimension];
+       for (int columna = 0; columna < matriz[0].length; columna++) {
+           if(columna%2==0){
+                for (int fila = 0; fila < matriz.length; fila++) {
+                    matriz[fila][columna]=String.valueOf(valor);
+                    valor=valor+1;
+                }
+           }else{
+               for (int fila = matriz.length-1; fila >= 0; fila--) {
+                    matriz[fila][columna]=String.valueOf(valor);
+                    valor=valor+1;
+               }
+           }
+       }
+       imprimirMatriz(matriz);
+    }
+
 
     public void imprimirMatriz(String[][] m) {
         for (int f = 0; f < m.length; f++) {
@@ -52,7 +75,7 @@ public class Transformadas {
 
     public static void main(String[] args) {
         //new Transformadas().transformada01();
-        new Transformadas().transformada17();
+        new Transformadas().transformada21();
     }
 
 }
